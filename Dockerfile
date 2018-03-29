@@ -11,8 +11,8 @@ RUN apk add \
   pdftk \
   ghostscript \
   imagemagick \
-  ghostscript-fonts \
-  python-pip 
+  ghostscript-fonts
+  #python-pip 
 
 RUN pip install werkzeug executor gunicorn
 

@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-MAINTAINER Mark Percival <m@mdp.im>
+#MAINTAINER 
 
 # data should be mounted with a directory container your PDF's
 RUN mkdir /data

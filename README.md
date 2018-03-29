@@ -1,4 +1,4 @@
-# docker-wkhtmltopdf-aas
+# docker-ghostscript-aas
 
 wkhtmltopdf in a docker container as a web service.
 
@@ -11,7 +11,7 @@ Run the container with docker run and binding the ports to the host.
 The web service is exposed on port 80 in the container.
 
 ```sh
-docker run -d -P openlabs/docker-wkhtmltopdf-aas
+docker run -d -P argogocode/docker-ghostscript-aas
 ```
 
 The container now runs as a daemon.
@@ -32,13 +32,13 @@ Take a note of the public port number where docker binds to.
 There are multiple ways to generate a PDF of HTML using the
 service.
 
-### Uploading a HTML file
+### Uploading a PDF files
 
 This is a convenient way to use the service from command line
 utilities like curl.
 
 ```sh
-curl -X POST -vv -F 'file=@path/to/local/file.html' http://<docker-host>:<port>/ -o path/to/output/file.pdf
+curl -X POST -vv -F 'file=@path/to/local/file1.pdf' -F 'file=@path/to/local/file2.pdf' http://<docker-host>:<port>/ -o path/to/output/file.pdf
 ```
 
 where:
@@ -60,7 +60,7 @@ import requests
 
 url = 'http://<docker_host>:<port>/'
 data = {
-    'contents': open('/file/to/convert.html').read().encode('base64'),
+    'contents': open('/file/to/convert1.pdf').read().encode('base64'),
 }
 headers = {
     'Content-Type': 'application/json',    # This is important

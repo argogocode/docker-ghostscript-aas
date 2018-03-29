@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 """
-    WSGI APP to convert wkhtmltopdf As a webservice
+    WSGI APP to convert multiple pdf files into one pdf using ghostcript As a webservice
 
     :copyright: (c) 2013 by Openlabs Technologies & Consulting (P) Limited
     :license: BSD, see LICENSE for more details.
@@ -17,7 +17,7 @@ from executor import execute
 def application(request):
     """
     To use this application, the user must send a POST request with
-    base64 or form encoded encoded HTML content and the wkhtmltopdf Options in
+    base64 or form encoded encoded PDF files content and the ghostcript Options in
     request data, with keys 'base64_html' and 'options'.
     The application will return a response with the PDF file.
     """
@@ -26,7 +26,7 @@ def application(request):
 
     request_is_json = request.content_type.endswith('json')
 
-    with tempfile.NamedTemporaryFile(suffix='.html') as source_file:
+    with tempfile.NamedTemporaryFile(suffix='.pdf') as source_file:
 
         if request_is_json:
             # If a JSON payload is there, all data is in the payload
@@ -42,7 +42,7 @@ def application(request):
         source_file.flush()
 
         # Evaluate argument to run with subprocess
-        args = ['wkhtmltopdf']
+        args = ['ghostscript']
 
         # Add Global Options
         if options:

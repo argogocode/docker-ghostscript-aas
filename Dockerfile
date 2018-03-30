@@ -14,7 +14,7 @@ RUN apk add \
   ghostscript-fonts
   #python-pip 
 
-RUN pip install werkzeug executor gunicorn
+#RUN pip install werkzeug executor gunicorn
 
 #FROM openlabs/docker-wkhtmltopdf:latest
 #MAINTAINER Sharoon Thomas <sharoon.thomas@openlabs.co.in>
@@ -26,7 +26,7 @@ RUN pip install werkzeug executor gunicorn
 ADD app.py /app.py
 EXPOSE 80
 
-ENTRYPOINT ["usr/local/bin/gunicorn"]
+#ENTRYPOINT ["usr/local/bin/gunicorn"]
 
 # Show the extended help
 CMD ["-b", "0.0.0.0:80", "--log-file", "-", "app:application"]

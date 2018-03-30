@@ -29,4 +29,4 @@ EXPOSE 80
 #ENTRYPOINT ["usr/local/bin/gunicorn"]
 
 # Show the extended help
-CMD ["-b", "0.0.0.0:80", "--log-file", "-", "app:application"]
+#CMD ["-b", "0.0.0.0:80", "--log-file", "-", "app:application"]

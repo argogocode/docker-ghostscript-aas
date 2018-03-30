@@ -35,25 +35,29 @@ def application(request):
             options = payload.get('options', {})
         elif request.files:
             # First check if any files were uploaded
-            source_file.write(request.files['file'].read())
+            source_file.write(request.files['file0'].read())
             # Load any options that may have been provided in options
             options = json.loads(request.form.get('options', '{}'))
 
         source_file.flush()
 
         # Evaluate argument to run with subprocess
-        args = ['ghostscript']
+        #ghostscript -q -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dUseCIEColor -sOutputFile=$outputName -dBATCH $files";
 
+        args = ['ghostscript']
+        args.append('-q -sDEVICE=pdfwrite -dCompatibilityLevel=1.4')
+        args.append('-dPDFSETTINGS=/printer -dNOPAUSE -dQUIET -dUseCIEColor')
+        
         # Add Global Options
         if options:
             for option, value in options.items():
-                args.append('--%s' % option)
+                args.append('-d%s' % option)
                 if value:
-                    args.append('"%s"' % value)
+                    args.append('="%s"' % value)
 
         # Add source file name and output file name
         file_name = source_file.name
-        args += [file_name, file_name + ".pdf"]
+        args += ["-sOutputFile=" + file_name +".pdf", "-dBATCH " + file_name]
 
         # Execute the command using executor
         execute(' '.join(args))
